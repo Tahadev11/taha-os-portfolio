@@ -11,10 +11,17 @@ async function bootstrap() {
   app.setGlobalPrefix('api/v1');
 
   // Frontend connection
-  app.enableCors({
-    origin: process.env.FRONTEND_URL || 'http://localhost:3000',
-    credentials: true,
-  });
+const allowedOrigins = [
+  'http://localhost:3000',
+  'https://taha-os-portfolio.vercel.app',
+];
+
+app.enableCors({
+  origin: allowedOrigins,
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+});
 
   // Global request validation
   app.useGlobalPipes(
