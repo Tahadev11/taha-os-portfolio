@@ -1,7 +1,7 @@
 
 "use client";
 
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
 
 import AdminSidebar from "@/components/AdminSidebar";
@@ -15,7 +15,7 @@ import {
 
 import "./admin.css";
 
-export default function AdminLayout({
+function AdminLayoutContent({
   children,
 }: Readonly<{
   children: React.ReactNode;
@@ -65,7 +65,7 @@ export default function AdminLayout({
       }
     }
 
-    checkAuthentication();
+    void checkAuthentication();
 
     return () => {
       active = false;
@@ -113,5 +113,30 @@ export default function AdminLayout({
         </div>
       </main>
     </div>
+  );
+}
+
+function AdminLayoutFallback() {
+  return (
+    <main className="admin-loading-screen">
+      <div className="admin-loading-content">
+        <div className="admin-loading-spinner" />
+        <p>LOADING ADMIN PANEL...</p>
+      </div>
+    </main>
+  );
+}
+
+export default function AdminLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
+  return (
+    <Suspense fallback={<AdminLayoutFallback />}>
+      <AdminLayoutContent>
+        {children}
+      </AdminLayoutContent>
+    </Suspense>
   );
 }
