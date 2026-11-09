@@ -1,0 +1,43 @@
+# Dependencies
+node_modules/
+
+# Environment variables and secrets
+.env
+.env.*
+!.env.example
+
+# Build output
+dist/
+build/
+.next/
+out/
+
+# Cache and coverage
+.turbo/
+coverage/
+.cache/
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+pnpm-debug.log*
+
+# Deployment
+.vercel/
+
+# Operating system
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDE
+.vscode/
+.idea/
+
+# Private keys
+*.pem
+*.key
+# Old nested Git backups
+/backend/backend-git-backup/
+/frontend/frontend-git-backup/
