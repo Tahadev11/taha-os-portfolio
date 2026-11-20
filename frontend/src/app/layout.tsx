@@ -2,11 +2,15 @@
 import type { Metadata } from "next";
 import "./globals.css";
 
+
 export const metadata: Metadata = {
   title: "Taha Siddique | Software Engineer",
-  description:
-    "Personal portfolio of Taha Siddique, Software Engineer.",
+  description: "Personal portfolio of Taha Siddique, Software Engineer.",
+  icons: {
+    icon: "/taha-os-favicon.png",
+  },
 };
+
 
 export default function RootLayout({
   children,

@@ -86,7 +86,7 @@ export default function AdminSidebar({ admin }: AdminSidebarProps) {
           </div>
 
           <div className="admin-user-details">
-            <strong>{admin.name || "Admin"}</strong>
+            <strong>{admin.name || "Taha"}</strong>
             <span>{admin.email}</span>
           </div>
         </div>
