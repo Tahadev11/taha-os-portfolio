@@ -1,7 +1,7 @@
 
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import { portfolioService } from "@/services/portfolioService";
 
@@ -37,6 +37,30 @@ const [activeSection, setActiveSection] =
   useState<Section>("home");
 
 const [isReady, setIsReady] = useState(false);
+
+// Hidden admin access: click the footer copyright text five times within 2 seconds.
+const footerClickCount = useRef(0);
+const footerClickTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+function handleFooterAccess() {
+  footerClickCount.current += 1;
+
+  if (footerClickTimer.current) {
+    clearTimeout(footerClickTimer.current);
+  }
+
+  if (footerClickCount.current >= 5) {
+    footerClickCount.current = 0;
+    footerClickTimer.current = null;
+    window.location.href = "/admin/login";
+    return;
+  }
+
+  footerClickTimer.current = setTimeout(() => {
+    footerClickCount.current = 0;
+    footerClickTimer.current = null;
+  }, 2000);
+}
 
     // Restore the selected section from the URL
 useEffect(() => {
@@ -592,9 +616,9 @@ function navigateTo(section: Section) {
 
           {/* FOOTER */}
           <footer className="footer">
-            <span>
-              © 2026 {profile?.fullName || "TAHA SIDDIQUE"}
-            </span>
+<span onClick={handleFooterAccess}>
+  © 2026 {profile?.fullName || "TAHA SIDDIQUE"}
+</span>
 
             <span>
               DESIGNED & BUILT WITH PRECISION
